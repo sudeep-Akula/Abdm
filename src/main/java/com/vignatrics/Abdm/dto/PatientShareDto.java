@@ -14,6 +14,7 @@ public class PatientShareDto {
     private String abhaNumber;
     private String abhaAddress;
     private String name;
+    private String responsedata;
 
 
 

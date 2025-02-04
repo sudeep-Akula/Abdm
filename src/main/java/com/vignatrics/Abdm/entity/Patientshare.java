@@ -2,6 +2,7 @@ package com.vignatrics.Abdm.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,5 +20,7 @@ public class Patientshare {
    private String abhaNumber;
    private String abhaAddress;
    private String name;
+   @Lob
+   private String responsedata;
 
 }

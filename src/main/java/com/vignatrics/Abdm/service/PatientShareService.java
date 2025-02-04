@@ -4,7 +4,8 @@ import com.vignatrics.Abdm.dto.PatientShareDto;
 
 public interface PatientShareService {
 
-    public String patientSahre(PatientShareDto dto);
+    public int patientSahre(PatientShareDto dto) throws Exception;
+    public int updatePatientShare(PatientShareDto dto) throws Exception;
 }
 
 

@@ -1,18 +1,19 @@
 package com.vignatrics.Abdm.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vignatrics.Abdm.dto.PatientShareDto;
-import com.vignatrics.Abdm.entity.Patientshare;
 import com.vignatrics.Abdm.service.PatientShareService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController()
-@RequestMapping("/ab")
+@RequestMapping("/ABDM")
 public class CallBackAbdm {
 
     @Autowired
@@ -23,27 +24,34 @@ public class CallBackAbdm {
 
 
     }
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @PostMapping("/api/v3/hip/patient/share")
-    public String patientShare(@RequestBody Map<String, Object> jsonData){
+    public ResponseEntity<Object> patientShare(@RequestBody Map<String, Object> jsonData,@RequestHeader("x-hip-id") String xipid) throws Exception {
+            System.out.println("header values  "+xipid);
+        int i=0;
+        try {
+            if (jsonData != null) {
+                String jsonDataString = objectMapper.writeValueAsString(jsonData);
+                Map<String, Object> profile = (Map<String, Object>) jsonData.get("profile");
+                Map<String, Object> patient = (Map<String, Object>) profile.get("patient");
 
-if (jsonData != null){
-    // Extract fields from JSON data
-    Map<String, Object> profile = (Map<String, Object>) jsonData.get("profile");
-    Map<String, Object> patient = (Map<String, Object>) profile.get("patient");
+                PatientShareDto PatientSharedto = new PatientShareDto();
 
-    //String abhaNumber = (String) patient.get("abhaNumber");
-    //String name = (String) patient.get("name");
-    PatientShareDto  PatientSharedto = new PatientShareDto();
+                PatientSharedto.setAbhaNumber((String) patient.get("abhaNumber"));
+                PatientSharedto.setName((String) patient.get("name"));
+                PatientSharedto.setAbhaAddress((String) patient.get("abhaAddress"));
+                i = patientService.patientSahre(PatientSharedto);
+                PatientSharedto.setResponsedata(jsonDataString);
 
-    //PatientSharedto.setName((String) jsonData.get("field 9"));
-    PatientSharedto.setAbhaNumber((String) patient.get("abhaNumber"));
-    PatientSharedto.setName((String) patient.get("name"));
-    PatientSharedto.setAbhaAddress((String) patient.get("abhaAddress"));
+                i = patientService.updatePatientShare(PatientSharedto);
+                return new ResponseEntity<>(i, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<> ("Please check your Api",HttpStatus.NO_CONTENT);
+            }
+        }catch (Exception e){
+           return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        }
 
-    patientService.patientSahre(PatientSharedto);
-}
 
-
-return  "patient details arenot saved";
-    }
 }
