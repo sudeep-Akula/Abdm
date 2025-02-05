@@ -8,7 +8,7 @@ public class AbdmApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AbdmApplication.class, args);
-		System.out.print("started");
+		//System.out.print("started");
 	}
 
 }

@@ -17,8 +17,8 @@ public class PatientShareServiceImpl implements PatientShareService{
     @Override
     public String patientSahre(PatientShareDto dto) {
 
-String msg = "Patient Details are saved";
-        if(Objects.nonNull(dto)) {
+        String msg = "Patient Details are saved";
+        if (Objects.nonNull(dto)) {
             Patientshare patientShare = new Patientshare();
 
             patientShare.setAbhaNumber(dto.getAbhaNumber());
