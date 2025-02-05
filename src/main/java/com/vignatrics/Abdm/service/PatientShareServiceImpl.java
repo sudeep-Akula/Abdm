@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -28,7 +29,7 @@ public class PatientShareServiceImpl implements PatientShareService{
                 patientShare.setAbhaNumber(dto.getAbhaNumber());
                 patientShare.setName(dto.getName());
                 patientShare.setAbhaAddress(dto.getAbhaAddress());
-                //patientShare.setResponsedata(dto.getResponsedata());
+                patientShare.setResponsedata(dto.getResponsedata());
                 patientShareRepo.save(patientShare);
 
                 i= 1;
@@ -57,5 +58,10 @@ public class PatientShareServiceImpl implements PatientShareService{
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
+
+    @Override
+    public List findByabhaNumber(String id) throws Exception {
+        return List.of(patientShareRepo.findById(id));
     }
 }

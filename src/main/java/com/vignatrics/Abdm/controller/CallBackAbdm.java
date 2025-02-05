@@ -2,6 +2,7 @@ package com.vignatrics.Abdm.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vignatrics.Abdm.dto.PatientShareDto;
+import com.vignatrics.Abdm.entity.Patientshare;
 import com.vignatrics.Abdm.service.PatientShareService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +41,10 @@ public class CallBackAbdm {
                 PatientSharedto.setAbhaNumber((String) patient.get("abhaNumber"));
                 PatientSharedto.setName((String) patient.get("name"));
                 PatientSharedto.setAbhaAddress((String) patient.get("abhaAddress"));
-                i = patientService.patientSahre(PatientSharedto);
                 PatientSharedto.setResponsedata(jsonDataString);
+                i = patientService.patientSahre(PatientSharedto);
 
-                i = patientService.updatePatientShare(PatientSharedto);
+//                i = patientService.updatePatientShare(PatientSharedto);
                 return new ResponseEntity<>(i, HttpStatus.OK);
             } else {
                 return new ResponseEntity<> ("Please check your Api",HttpStatus.NO_CONTENT);
@@ -51,7 +52,12 @@ public class CallBackAbdm {
         }catch (Exception e){
            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        }
+    }
+
+    @GetMapping("/getData/{id}")
+    public List<Patientshare> getPatientData(@PathVariable("id") String id) throws Exception {
+        return patientService.findByabhaNumber(id);
+    }
 
 
 }
