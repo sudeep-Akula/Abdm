@@ -11,8 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class PatientShareServiceImpl implements PatientShareService{
@@ -59,6 +63,19 @@ public class PatientShareServiceImpl implements PatientShareService{
             throw new Exception(e.getMessage());
         }
     }
+    public String  generateUniqID(){ // These is For Generate UUID
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+        return uuidString;
+    }
+    public String gnerateTimeStamp(){ // These is for generate TimeStamp
+        Instant now = Instant.now();
+        String isoTimestamp = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .withZone(ZoneOffset.UTC)
+                .format(now);
+        return isoTimestamp;
+    }
+
 
     @Override
     public List findByabhaNumber(String id) throws Exception {
