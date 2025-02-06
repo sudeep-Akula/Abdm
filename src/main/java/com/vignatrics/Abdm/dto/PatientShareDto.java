@@ -15,6 +15,11 @@ public class PatientShareDto {
     private String abhaAddress;
     private String name;
     private String responsedata;
+    private String request_Id;
+    private String x_Hip_Id;
+    private String oauthorization;
+    private String response_Message;
+    private String status_Code;
 
 
 

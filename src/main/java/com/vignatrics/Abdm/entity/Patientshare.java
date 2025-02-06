@@ -16,11 +16,18 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Patientshare")
 public class Patientshare {
-    @Id
+
    private String abhaNumber;
    private String abhaAddress;
    private String name;
    @Lob
    private String responsedata;
+   @Id
+   private String request_Id;
+   private String x_Hip_Id;
+   @Lob
+   private String oauthorization;
+   private String status_Code;
+   private String response_Message;
 
 }

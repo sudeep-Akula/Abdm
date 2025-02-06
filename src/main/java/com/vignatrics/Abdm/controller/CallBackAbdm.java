@@ -27,22 +27,25 @@ public class CallBackAbdm {
     }
     private final ObjectMapper objectMapper = new ObjectMapper();
     @PostMapping("/api/v3/hip/patient/share")
-    public ResponseEntity<Object> patientShare(@RequestBody Map<String, Object> jsonData,@RequestHeader("x-hip-id") String xipid) throws Exception {
-            System.out.println("header values  "+xipid);
+    public ResponseEntity<Object> patientShare(@RequestBody Map<String, Object> jsonData,@RequestHeader Map<String, String> headers) throws Exception {
+          //  System.out.println("header values  "+xipid);
         int i=0;
         try {
-            if (jsonData != null) {
+            if (jsonData != null && headers!=null) {
                 String jsonDataString = objectMapper.writeValueAsString(jsonData);
                 Map<String, Object> profile = (Map<String, Object>) jsonData.get("profile");
                 Map<String, Object> patient = (Map<String, Object>) profile.get("patient");
 
                 PatientShareDto PatientSharedto = new PatientShareDto();
-
+                PatientSharedto.setRequest_Id(headers.get("request-id"));
+                PatientSharedto.setX_Hip_Id(headers.get("x-hip-id"));
+                PatientSharedto.setOauthorization(headers.get("authorization"));
                 PatientSharedto.setAbhaNumber((String) patient.get("abhaNumber"));
                 PatientSharedto.setName((String) patient.get("name"));
                 PatientSharedto.setAbhaAddress((String) patient.get("abhaAddress"));
                 PatientSharedto.setResponsedata(jsonDataString);
-                i = patientService.patientSahre(PatientSharedto);
+              //  i = patientService.patientSahre(PatientSharedto);
+                i = patientService.profileOnShare(PatientSharedto);
 
 //                i = patientService.updatePatientShare(PatientSharedto);
                 return new ResponseEntity<>(i, HttpStatus.OK);
@@ -54,10 +57,14 @@ public class CallBackAbdm {
         }
     }
 
-    @GetMapping("/getData/{id}")
-    public List<Patientshare> getPatientData(@PathVariable("id") String id) throws Exception {
-        return patientService.findByabhaNumber(id);
-    }
+//    @GetMapping("/getData/{id}")
+//    public List<Patientshare> getPatientData(@PathVariable("id") String id) throws Exception {
+//        return patientService.findByabhaNumber(id);
+//    }
 
+    @GetMapping("/getSession")
+    public String getSession(HttpServletRequest request){
+        return request.getSession().getId();
+    }
 
 }
