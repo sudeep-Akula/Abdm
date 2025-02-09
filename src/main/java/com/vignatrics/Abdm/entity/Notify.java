@@ -27,14 +27,6 @@ public class Notify {
 
     private String patientId;
 
-    //@Convert(converter = MapToStringConverter.class)
-    //private Map<String,String> patientReference;
-
-    //private List<String> patientReference;
-
-    //private List<String> careContextReference;
-
-
     @ElementCollection
     private List<CareContext> careContexts;
 

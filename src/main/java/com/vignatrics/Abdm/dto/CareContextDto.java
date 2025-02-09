@@ -13,4 +13,5 @@ public class CareContextDto {
 
     private String patientReference;
     private String careContextReference;
+
 }

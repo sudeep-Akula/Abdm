@@ -22,13 +22,6 @@ public class NotifyDto {
     private String createdAt;
 
     private String patientId;
-
-    //@Convert(converter = MapToStringConverter.class)
-    //private Map<String,String> patientReference;
-
-  //  private List<String> patientReference;
-
-   // private List<String> careContextReference;
     private List<CareContextDto> careContextsdto;
 
     private List<String> hiTypes;

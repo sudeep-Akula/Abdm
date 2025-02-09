@@ -40,5 +40,6 @@ public class NotifyServiceImpl implements NotifyService{
         notifyRepo.save(notify);
 
         return "The data is saved";
+        
     }
 }
