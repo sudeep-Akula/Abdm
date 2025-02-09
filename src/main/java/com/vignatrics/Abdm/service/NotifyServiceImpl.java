@@ -38,7 +38,6 @@ public class NotifyServiceImpl implements NotifyService{
         notify.setCareContexts(careContextLst);
 
         notifyRepo.save(notify);
-
         return "The data is saved";
         
     }

@@ -15,5 +15,4 @@ public class CareContext {
 
     private String patientReference;
     private String careContextReference;
-
 }

@@ -23,6 +23,5 @@ public class NotifyDto {
 
     private String patientId;
     private List<CareContextDto> careContextsdto;
-
     private List<String> hiTypes;
 }

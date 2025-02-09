@@ -26,7 +26,6 @@ public class Notify {
     private String createdAt;
 
     private String patientId;
-
     @ElementCollection
     private List<CareContext> careContexts;
 

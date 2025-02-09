@@ -78,6 +78,7 @@ public class CallBackAbdm {
 //        return patientService.findByabhaNumber(id);
 //    }
 
+
     @GetMapping("/getSession")
     public String getSession(HttpServletRequest request){
         return request.getSession().getId();
